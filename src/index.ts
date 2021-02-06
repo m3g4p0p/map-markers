@@ -63,3 +63,12 @@ markerSelect.on('select', event => {
     })
   }
 })
+
+if (window.parent === window) {
+  import('./controlpanel').then(({ initControls }) => {
+    const controlForm = document.getElementById('controls')
+    initControls(controlForm as HTMLFormElement, map)
+  }).catch(console.error)
+} else {
+  selected.hidden = true
+}

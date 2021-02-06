@@ -35,5 +35,39 @@ auch Mainz,8.272,49.982
       </div>
     </div>
   </template>
+
+  <form id="controls" hidden>
+    <h2>Controls</h2>
+
+    <label>
+      Name:
+      <input type="text" name="name">
+    </label>
+
+    <label>
+      Color:
+      <input type="color" name="color">
+    </label>
+
+    <label>
+      Longitude:
+      <input type="number" name="lon">
+    </label>
+
+    <label>
+      Latitude:
+      <input type="number" name="lat">
+    </label>
+
+    <label for="info">Info:</label>
+    <div class="control">
+      <textarea id="info" name="info"></textarea>
+    </div>
+
+    <div class="control">
+      <button type="button" name="add">Add</button>
+      <button type="button" name="add" disabled>Remove</button>
+    </div>
+  </form>
 </body>
 </html>
