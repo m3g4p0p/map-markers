@@ -1,9 +1,11 @@
 body {
   background-color: black;
+  padding: 0;
 }
 
 h2 {
   color: white;
+  padding: 1em;
 }
 
 .map {

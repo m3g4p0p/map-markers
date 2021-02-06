@@ -5,10 +5,23 @@ function readMarkerCSV (element) {
   const lines = element.textContent.trim().split('\n')
 
   return lines.map(line => line.split(',').map(value => {
-    const number = Number(value)
-    return Number.isNaN(number) ? value : number
+    const parsed = Number(value)
+    return Number.isNaN(parsed) ? value : parsed
   }))
 }
+
+function getPixelValue (params: URLSearchParams, prop: string) {
+  const value = params.get(prop)
+  return value ? value + 'px' : ''
+}
+
+const params = new URLSearchParams(window.location.search)
+const target = document.getElementById('map')
+
+Object.assign(target.style, {
+  width: getPixelValue(params, 'width'),
+  height: getPixelValue(params, 'height')
+})
 
 const markers = Array.from(
   document.querySelectorAll<HTMLTemplateElement>('.marker'),
@@ -24,7 +37,7 @@ const markers = Array.from(
 
 const selected = document.getElementById('selected')
 const { textContent: defaultText } = selected
-const markerSelect = initMarkerMap(markers)
+const markerSelect = initMarkerMap(target, markers)
 const map = markerSelect.getMap()
 const view = map.getView()
 

@@ -58,9 +58,9 @@ class MarkerText extends Text {
   }
 }
 
-export function initMarkerMap (markers) {
+export function initMarkerMap (target, markers) {
   const map = new Map({
-    target: 'map',
+    target,
     layers: [
       new TileLayer({
         source: new OSM()
