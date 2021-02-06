@@ -4,20 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>index</title>
-  <style>
-    body {
-      background-color: black;
-    }
-
-    h2 {
-      color: white;
-    }
-
-    .map {
-      height: 400px;
-      width: 100%;
-    }
-  </style>
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css"> -->
   <!-- <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script> -->
 </head>
@@ -28,5 +14,26 @@
 Mainz,8.27,49.98
 auch Mainz,8.272,49.982
   </script>
+
+  <template class="marker" data-lon="8.27" data-lat="49.98">
+    <h2 class="name">Mainz</h2>
+    <div class="info">
+      <p>
+        This is <a href="https://www.mainz.de/">Mainz</a> not Wiesbaden!
+      </p>
+    </div>
+  </template>
+
+  <template class="marker" data-lon="8.272" data-lat="49.982">
+    <h2 class="name">auch Mainz</h2>
+    <div class="info">
+      <p>
+        Whooo! Whooo! Whooo!
+      </p>
+      <div>
+        <img src="https://solid-rlp.de/wp-content/uploads/2018/06/Haus-Mainusch.jpg" alt="" width="200">
+      </div>
+    </div>
+  </template>
 </body>
 </html>

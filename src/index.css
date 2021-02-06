@@ -1,0 +1,19 @@
+body {
+  background-color: black;
+}
+
+h2 {
+  color: white;
+}
+
+.map {
+  height: 400px;
+  width: 100%;
+}
+
+.info {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px black;
+}
