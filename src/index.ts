@@ -35,18 +35,12 @@ const markers = Array.from(
   })
 )
 
-const selected = document.getElementById('selected')
-const { textContent: defaultText } = selected
 const markerSelect = initMarkerMap(target, markers)
 const map = markerSelect.getMap()
 const view = map.getView()
 
 markerSelect.on('select', event => {
   const [current] = event.selected
-
-  selected.textContent = current
-    ? ` ${current.get('name')}!`
-    : defaultText
 
   event.selected.forEach((marker: Marker) => {
     marker.showInfo(map)
@@ -67,8 +61,8 @@ markerSelect.on('select', event => {
 if (window.parent === window) {
   import('./controlpanel').then(({ initControls }) => {
     const controlForm = document.getElementById('controls')
-    initControls(controlForm as HTMLFormElement, map)
+
+    initControls(controlForm as HTMLFormElement, markerSelect)
+    controlForm.hidden = false
   }).catch(console.error)
-} else {
-  selected.hidden = true
 }

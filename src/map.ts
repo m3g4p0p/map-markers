@@ -13,8 +13,15 @@ import GeometryType from 'ol/geom/GeometryType'
 import OverlayPositioning from 'ol/OverlayPositioning'
 import 'ol/ol.css'
 
+function createInfoElement (innerHTML = '') {
+  Object.assign(
+    document.createElement('div'),
+    { className: 'info', innerHTML }
+  )
+}
+
 export class Marker extends Feature {
-  public readonly popup: Overlay = null
+  private popup: Overlay = null
 
   constructor ({ location, name, info }) {
     super({
@@ -23,25 +30,47 @@ export class Marker extends Feature {
       name
     })
 
-    if (info) {
-      this.popup = new Overlay({
-        element: info,
-        position: fromLonLat(location),
-        positioning: 'center-left' as OverlayPositioning,
-        offset: [20, 0]
-      })
-    }
+    this.set('info', info || createInfoElement())
+    this.set('location', location)
+    this.on('propertychange', this.handleChange)
+    this.popup = this.initPopup()
   }
 
   public showInfo (map: Map) {
-    if (this.popup) {
+    if (this.popup.getElement().innerHTML.trim()) {
       map.addOverlay(this.popup)
     }
   }
 
   public hideInfo (map: Map) {
+    map.removeOverlay(this.popup)
+  }
+
+  public toggleInfo (map: Map, value: boolean) {
+    return value ? this.showInfo(map) : this.hideInfo(map)
+  }
+
+  private initPopup () {
     if (this.popup) {
-      map.removeOverlay(this.popup)
+      this.popup.dispose()
+    }
+
+    return new Overlay({
+      element: this.get('info'),
+      position: fromLonLat(this.get('location')),
+      positioning: 'center-left' as OverlayPositioning,
+      offset: [20, 0]
+    })
+  }
+
+  private handleChange = event => {
+    switch (event.key) {
+      case 'location':
+        this.popup.setPosition(fromLonLat(this.get('location')))
+        break
+
+      case 'info':
+        this.popup.setElement(this.get('info'))
     }
   }
 }
