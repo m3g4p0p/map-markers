@@ -35,7 +35,7 @@ const markers = Array.from(
   })
 )
 
-const markerSelect = initMarkerMap(target, markers)
+const { markerLayer, markerSelect } = initMarkerMap(target, markers)
 const map = markerSelect.getMap()
 const view = map.getView()
 
@@ -62,7 +62,7 @@ if (window.parent === window && !params.has('noedit')) {
   import('./controlpanel').then(({ initControls }) => {
     const controlForm = document.getElementById('controls')
 
-    initControls(controlForm as HTMLFormElement, markerSelect)
+    initControls(controlForm as HTMLFormElement, markerLayer, markerSelect)
     controlForm.hidden = false
   }).catch(console.error)
 }

@@ -3,6 +3,7 @@ import { Marker } from './map'
 import { toLonLat } from 'ol/proj'
 import { SelectEvent, SelectEventType } from 'ol/interaction/Select'
 import VectorLayer from 'ol/layer/Vector'
+import { getName } from './nonsense'
 
 const SELECT = 'select' as SelectEventType
 
@@ -17,14 +18,14 @@ function setInfo (marker: Marker, value: string) {
   return value.trim().length > 0
 }
 
-function setLocation (marker, form) {
+function setLocation (marker: Marker, form: HTMLFormElement) {
   const lon = Number(form.elements['lon'].value)
   const lat = Number(form.elements['lat'].value)
 
   marker.set('location', [lon, lat])
 }
 
-export function initControls (form: HTMLFormElement, select: Select) {
+export function initControls (form: HTMLFormElement, layer: VectorLayer, select: Select) {
   const addButton = form.elements['add-marker'] as HTMLButtonElement
   const removeButton = form.elements['remove-marker'] as HTMLButtonElement
 
@@ -65,26 +66,26 @@ export function initControls (form: HTMLFormElement, select: Select) {
     marker.set('location', [lon, lat])
   })
 
-  addButton.addEventListener('click', () => {
+  addButton.addEventListener('click', async () => {
     const center = map.getView().getCenter()
 
-    const layer = map.getLayers().getArray().find(layer =>
-      layer instanceof VectorLayer) as VectorLayer
-
     const marker = new Marker({
-      name: form.elements['name'].value,
+      name: await getName(form),
       location: toLonLat(center),
       infoHTML: form.elements['info'].value
     })
 
     const event = new SelectEvent(SELECT, [marker], [], null)
 
+    select.getFeatures().push(marker)
     layer.getSource().addFeature(marker)
     select.dispatchEvent(event)
+
   })
 
   removeButton.addEventListener('click', () => {
-    const source = select.getLayer(marker).getSource()
+    // const source = select.getLayer(marker).getSource()
+    const source = layer.getSource()
     const event = new SelectEvent(SELECT, [], [marker], null)
 
     source.removeFeature(marker)

@@ -50,6 +50,14 @@ export class Marker extends Feature {
     return value ? this.showInfo(map) : this.hideInfo(map)
   }
 
+  public pickle () {
+    return {
+      name: this.get('name'),
+      location: this.get('location'),
+      infoHTML: this.get('info').innerHTML
+    }
+  }
+
   private initPopup () {
     if (this.popup) {
       this.popup.dispose()
@@ -129,5 +137,5 @@ export function initMarkerMap (target: HTMLElement, markers: any[]) {
   map.addLayer(markerLayer)
   map.addInteraction(markerSelect)
 
-  return markerSelect
+  return { markerLayer, markerSelect }
 }
