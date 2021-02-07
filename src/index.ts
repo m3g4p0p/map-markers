@@ -10,17 +10,17 @@ function readMarkerCSV (element) {
   }))
 }
 
-function getPixelValue (params: URLSearchParams, prop: string) {
-  const value = params.get(prop)
-  return value ? value + 'px' : ''
-}
-
 const params = new URLSearchParams(window.location.search)
+const isViewMode = (window.parent !== window) || params.has('noedit')
 const target = document.getElementById('map')
 
+function getViewParam (prop: string, viewDefault: string) {
+  return params.get(prop) || (isViewMode ? viewDefault : '')
+}
+
 Object.assign(target.style, {
-  width: getPixelValue(params, 'width'),
-  height: getPixelValue(params, 'height')
+  width: getViewParam('width', '100vw'),
+  height: getViewParam('height', '100vh')
 })
 
 const markers = Array.from(
@@ -58,11 +58,11 @@ markerSelect.on('select', event => {
   }
 })
 
-if (window.parent === window && !params.has('noedit')) {
+if (!isViewMode) {
   import('./controlpanel').then(({ initControls }) => {
     const controlForm = document.getElementById('controls')
 
     initControls(controlForm as HTMLFormElement, markerLayer, markerSelect)
-    controlForm.hidden = false
+    controlForm.style.display = ''
   }).catch(console.error)
 }

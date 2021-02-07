@@ -25,6 +25,12 @@ function setLocation (marker: Marker, form: HTMLFormElement) {
   marker.set('location', [lon, lat])
 }
 
+function focusInput (element: HTMLInputElement) {
+  element.focus()
+  element.selectionStart = 0
+  element.selectionEnd = element.value.length
+}
+
 export function initControls (form: HTMLFormElement, layer: VectorLayer, select: Select) {
   const addButton = form.elements['add-marker'] as HTMLButtonElement
   const removeButton = form.elements['remove-marker'] as HTMLButtonElement
@@ -80,7 +86,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
     select.getFeatures().push(marker)
     layer.getSource().addFeature(marker)
     select.dispatchEvent(event)
-
+    focusInput(form.elements['name'])
   })
 
   removeButton.addEventListener('click', () => {
