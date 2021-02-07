@@ -146,6 +146,11 @@
     "@types/geojson" "*"
     "@types/topojson-specification" "*"
 
+"@types/pell@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/pell/-/pell-1.0.0.tgz#23258e596cc8737bc3bbbb886d352097ec1bdafe"
+  integrity sha512-bzABuVySvnApxf+eBiWQmNRrf3uECd/9BznZPXsFx0HP9qWQB6pEqDqH8px3GC8izJWKSnhC85XkAqiGLTA5NQ==
+
 "@types/topojson-specification@*":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.1.tgz#a80cb294290b79f2d674d3f5938c544ed2bd9d80"
@@ -3251,6 +3256,11 @@ pbf@3.2.1:
   dependencies:
     ieee754 "^1.1.12"
     resolve-protobuf-schema "^2.1.0"
+
+pell@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/pell/-/pell-1.0.6.tgz#9edb026f1edec2b4964251cdb2cd6fcadff08a76"
+  integrity sha512-wuackvgjFCHmVABy7ACSmY2u53w+TlYFrVL2hN6V3rGL/iWWwVXMw2uphpZSXNnqFQTI8nMpD3UNNX8+R4BAYw==
 
 picomatch@^2.0.5:
   version "2.2.2"

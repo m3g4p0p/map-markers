@@ -1,3 +1,4 @@
+import 'ol/ol.css'
 import { Feature, Map, Overlay, View } from 'ol'
 import { Point } from 'ol/geom'
 import { fromLonLat } from 'ol/proj'
@@ -11,7 +12,6 @@ import OSM from 'ol/source/OSM'
 import Style from 'ol/style/Style'
 import GeometryType from 'ol/geom/GeometryType'
 import OverlayPositioning from 'ol/OverlayPositioning'
-import 'ol/ol.css'
 
 function createInfoElement (innerHTML = '') {
   return Object.assign(

@@ -1,5 +1,5 @@
-import { initMarkerMap, Marker } from './map'
 import './index.css'
+import { initMarkerMap, Marker } from './map'
 
 function readMarkerCSV (element) {
   const lines = element.textContent.trim().split('\n')
@@ -62,7 +62,7 @@ if (!isViewMode) {
   import('./controlpanel').then(({ initControls }) => {
     const controlForm = document.getElementById('controls')
 
-    initControls(controlForm as HTMLFormElement, markerLayer, markerSelect)
     controlForm.style.display = ''
+    initControls(controlForm as HTMLFormElement, markerLayer, markerSelect)
   }).catch(console.error)
 }

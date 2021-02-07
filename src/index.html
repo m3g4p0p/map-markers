@@ -30,36 +30,42 @@
   </template>
 
   <form id="controls" style="display: none;">
-    <h2>Markers</h2>
+    <div class="column">
+      <h2>Marker</h2>
 
-    <div class="control">
-      <button type="button" name="add-marker">Add</button>
-      <button type="button" name="remove-marker" disabled>Remove</button>
+      <div class="control">
+        <button type="button" name="add-marker">Add</button>
+        <button type="button" name="remove-marker" disabled>Remove</button>
+      </div>
+
+      <label>
+        Name:
+        <input type="text" name="name">
+      </label>
+
+      <label>
+        Color:
+        <input type="color" name="color">
+      </label>
+
+      <label>
+        Longitude:
+        <input type="number" name="lon" readonly>
+      </label>
+
+      <label>
+        Latitude:
+        <input type="number" name="lat" readonly>
+      </label>
     </div>
 
-    <label>
-      Name:
-      <input type="text" name="name">
-    </label>
+    <div class="column">
+      <h2>Popup</h2>
 
-    <label>
-      Color:
-      <input type="color" name="color">
-    </label>
-
-    <label>
-      Longitude:
-      <input type="number" name="lon" readonly>
-    </label>
-
-    <label>
-      Latitude:
-      <input type="number" name="lat" readonly>
-    </label>
-
-    <label for="info">Info:</label>
-    <div class="control">
-      <textarea id="info" name="info"></textarea>
+      <div class="control">
+        <input type="hidden" name="info">
+        <div id="editor" class="editor"></div>
+      </div>
     </div>
   </form>
 </body>

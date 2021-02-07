@@ -4,11 +4,6 @@ body {
   margin: 0;
 }
 
-form {
-  color: white;
-  padding: 10px;
-}
-
 .map {
   height: 400px;
   width: 100%;
@@ -23,9 +18,16 @@ form {
 
 form {
   display: flex;
-  flex-direction: column;
-  max-width: 500px;
+  justify-content: space-evenly;
+  padding: 10px;
+  color: white;
   font-family: 'Courier New', Courier, monospace;
+}
+
+form .column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 45%;
 }
 
 form input {
@@ -67,6 +69,14 @@ form button[disabled] {
   background-color: gray;
 }
 
-.medium-editor-element {
+.editor {
+  width: 100%;
+  color: initial;
+  font-family: initial;
   background-color: white;
+  border-radius: 3px;
+}
+
+.pell-content {
+  border: 1px solid white;
 }

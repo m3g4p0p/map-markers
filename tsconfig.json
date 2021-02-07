@@ -3,7 +3,8 @@
     "sourceMap": true,
     "strict": false,
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "ES6"
   },
   "exclude": ["node_modules"]
 }
