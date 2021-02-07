@@ -58,7 +58,7 @@ markerSelect.on('select', event => {
   }
 })
 
-if (window.parent === window) {
+if (window.parent === window && !params.has('noedit')) {
   import('./controlpanel').then(({ initControls }) => {
     const controlForm = document.getElementById('controls')
 

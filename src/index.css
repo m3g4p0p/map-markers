@@ -1,15 +1,12 @@
 body {
   background-color: black;
   padding: 0;
+  margin: 0;
 }
 
-h2,
 form {
   color: white;
-}
-
-h2 {
-  padding: 1em;
+  padding: 10px;
 }
 
 .map {
@@ -28,16 +25,27 @@ form {
   display: flex;
   flex-direction: column;
   max-width: 500px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 form input {
   margin-left: auto
 }
 
+form input,
+form textarea,
+form button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 0;
+  font-family: inherit;
+}
+
 form label,
 form .control {
   display: flex;
-  padding: 5px;
+  margin: 5px 0;
+  align-items: center;
 }
 
 form textarea {
@@ -48,9 +56,17 @@ form textarea {
 
 form button {
   background-color: white;
-  padding: 5px 10px;
-  margin-top: 10px;
   margin-right: 10px;
-  border: 0;
-  border-radius: 3px;
+}
+
+form button:active {
+  transform: scale(.9);
+}
+
+form button[disabled] {
+  background-color: gray;
+}
+
+.medium-editor-element {
+  background-color: white;
 }

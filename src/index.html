@@ -30,7 +30,12 @@
   </template>
 
   <form id="controls" hidden>
-    <h2>Controls</h2>
+    <h2>Markers</h2>
+
+    <div class="control">
+      <button type="button" name="add-marker">Add</button>
+      <button type="button" name="remove-marker" disabled>Remove</button>
+    </div>
 
     <label>
       Name:
@@ -44,22 +49,17 @@
 
     <label>
       Longitude:
-      <input type="number" name="lon">
+      <input type="number" name="lon" readonly>
     </label>
 
     <label>
       Latitude:
-      <input type="number" name="lat">
+      <input type="number" name="lat" readonly>
     </label>
 
     <label for="info">Info:</label>
     <div class="control">
       <textarea id="info" name="info"></textarea>
-    </div>
-
-    <div class="control">
-      <button type="button" name="add">Add</button>
-      <button type="button" name="add" disabled>Remove</button>
     </div>
   </form>
 </body>

@@ -14,7 +14,7 @@ import OverlayPositioning from 'ol/OverlayPositioning'
 import 'ol/ol.css'
 
 function createInfoElement (innerHTML = '') {
-  Object.assign(
+  return Object.assign(
     document.createElement('div'),
     { className: 'info', innerHTML }
   )
@@ -23,15 +23,15 @@ function createInfoElement (innerHTML = '') {
 export class Marker extends Feature {
   private popup: Overlay = null
 
-  constructor ({ location, name, info }) {
+  constructor ({ name, location, info = null, infoHTML = '' }) {
     super({
       type: GeometryType.POINT,
       geometry: new Point(fromLonLat(location)),
       name
     })
 
-    this.set('info', info || createInfoElement())
     this.set('location', location)
+    this.set('info', info || createInfoElement(infoHTML))
     this.on('propertychange', this.handleChange)
     this.popup = this.initPopup()
   }
@@ -87,7 +87,7 @@ class MarkerText extends Text {
   }
 }
 
-export function initMarkerMap (target, markers) {
+export function initMarkerMap (target: HTMLElement, markers: any[]) {
   const map = new Map({
     target,
     layers: [
