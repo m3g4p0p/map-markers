@@ -50,7 +50,7 @@ export class Marker extends Feature {
     return value ? this.showInfo(map) : this.hideInfo(map)
   }
 
-  public pickle () {
+  public toJSON () {
     return {
       name: this.get('name'),
       location: this.get('location'),

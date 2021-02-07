@@ -69,6 +69,10 @@ form button[disabled] {
   background-color: gray;
 }
 
+form label a {
+  color: white;
+}
+
 .editor {
   width: 100%;
   color: initial;

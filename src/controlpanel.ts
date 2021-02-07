@@ -32,9 +32,22 @@ function focusInput (element: HTMLInputElement) {
   element.selectionEnd = element.value.length
 }
 
+function updateLink (form: HTMLFormElement, layer: VectorLayer) {
+  const link = document.getElementById('link') as HTMLAnchorElement
+  const features = layer.getSource().getFeatures()
+  const params = new URLSearchParams()
+  const { origin, pathname } = window.location
+
+  params.append('noedit', '1')
+  params.append('markers', JSON.stringify(features))
+
+  form.elements['link'].value = link.href = origin + pathname + '?' + params
+}
+
 export function initControls (form: HTMLFormElement, layer: VectorLayer, select: Select) {
   const addButton = form.elements['add-marker'] as HTMLButtonElement
   const removeButton = form.elements['remove-marker'] as HTMLButtonElement
+  const clearButton = form.elements['clear-markers'] as HTMLButtonElement
   const infoEditor = initEditor(form.elements['info'])
 
   const translate = new Translate({
@@ -45,6 +58,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
   let marker: Marker = null
 
   map.addInteraction(translate)
+  updateLink(form, layer)
 
   select.on('select', event => {
     [marker = null] = event.selected as Marker[]
@@ -72,6 +86,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
     form.elements['lon'].value = lon
     form.elements['lat'].value = lat
     marker.set('location', [lon, lat])
+    updateLink(form, layer)
   })
 
   addButton.addEventListener('click', async () => {
@@ -89,6 +104,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
     layer.getSource().addFeature(marker)
     select.dispatchEvent(event)
     focusInput(form.elements['name'])
+    updateLink(form, layer)
   })
 
   removeButton.addEventListener('click', () => {
@@ -97,6 +113,15 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
 
     source.removeFeature(marker)
     select.dispatchEvent(event)
+    updateLink(form, layer)
+  })
+
+  clearButton.addEventListener('click', () => {
+    if (window.confirm('Sure about that?')) {
+      layer.getSource().clear()
+      form.reset()
+      updateLink(form, layer)
+    }
   })
 
   form.addEventListener('input', event => {

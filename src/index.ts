@@ -11,6 +11,7 @@ function readMarkerCSV (element) {
 }
 
 const params = new URLSearchParams(window.location.search)
+const markerParam = params.get('markers')
 const isViewMode = (window.parent !== window) || params.has('noedit')
 const target = document.getElementById('map')
 
@@ -23,17 +24,19 @@ Object.assign(target.style, {
   height: getViewParam('height', '100vh')
 })
 
-const markers = Array.from(
-  document.querySelectorAll<HTMLTemplateElement>('.marker'),
-  template => ({
-    location: [
-      Number(template.dataset.lon),
-      Number(template.dataset.lat)
-    ],
-    name: template.content.querySelector('.name')?.textContent,
-    info: template.content.querySelector('.info')?.cloneNode(true)
-  })
-)
+const markers = markerParam
+  ? JSON.parse(markerParam)
+  : Array.from(
+    document.querySelectorAll<HTMLTemplateElement>('.marker'),
+    template => ({
+      location: [
+        Number(template.dataset.lon),
+        Number(template.dataset.lat)
+      ],
+      name: template.content.querySelector('.name')?.textContent,
+      info: template.content.querySelector('.info')?.cloneNode(true)
+    })
+  )
 
 const { markerLayer, markerSelect } = initMarkerMap(target, markers)
 const map = markerSelect.getMap()
