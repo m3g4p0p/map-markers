@@ -19,6 +19,10 @@ function createInfoElement (innerHTML = '') {
   )
 }
 
+function minify (html: string) {
+  return html.trim().replace(/\s+/g, ' ')
+}
+
 export class Marker extends Feature {
   private popup: Overlay = null
 
@@ -58,7 +62,7 @@ export class Marker extends Feature {
     return {
       name: this.get('name'),
       location: this.get('location'),
-      infoHTML: this.get('info').innerHTML,
+      infoHTML: minify(this.get('info').innerHTML),
       color: filterObject<string>(this.get('color'), (key, value) =>
         value.toLowerCase() !== COLOR_DEFAULTS[key])
     }
