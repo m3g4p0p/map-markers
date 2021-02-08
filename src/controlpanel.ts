@@ -1,5 +1,5 @@
 import { Select, Translate } from 'ol/interaction'
-import { Marker } from './map'
+import { Marker } from './marker'
 import { toLonLat } from 'ol/proj'
 import { SelectEvent, SelectEventType } from 'ol/interaction/Select'
 import VectorLayer from 'ol/layer/Vector'
@@ -24,6 +24,17 @@ function setLocation (marker: Marker, form: HTMLFormElement) {
   const lat = Number(form.elements['lat'].value)
 
   marker.set('location', [lon, lat])
+}
+
+function getColor (form: HTMLFormElement) {
+  return {
+    primary: form.elements['color-primary'].value,
+    secondary: form.elements['color-secondary'].value
+  }
+}
+
+function setColor (marker: Marker, form: HTMLFormElement) {
+  marker.set('color', getColor(form))
 }
 
 function focusInput (element: HTMLInputElement) {
@@ -73,10 +84,13 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
     }
 
     const [lon, lat] = marker.get('location')
+    const { primary, secondary } = marker.get('color')
 
     form.elements['name'].value = marker.get('name')
     form.elements['lon'].value = lon
     form.elements['lat'].value = lat
+    form.elements['color-primary'].value = primary
+    form.elements['color-secondary'].value = secondary
     infoEditor.value = getInfo(marker)
     addButton.disabled = true
     removeButton.disabled = false
@@ -93,11 +107,13 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
 
   addButton.addEventListener('click', async () => {
     const center = map.getView().getCenter()
+    addButton.disabled = true
 
     const marker = new Marker({
       name: await getName(form),
       location: toLonLat(center),
-      infoHTML: infoEditor.value
+      infoHTML: infoEditor.value,
+      color: getColor(form)
     })
 
     const event = new SelectEvent(SELECT, [marker], [], null)
@@ -135,7 +151,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
 
     switch (name) {
       case 'name': {
-        marker.set(name, value)
+        marker.set('name', value)
         break
       }
 
@@ -148,6 +164,12 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
       case 'lon':
       case 'lat': {
         setLocation(marker, form)
+        break
+      }
+
+      case 'color-primary':
+      case 'color-secondary': {
+        setColor(marker, form)
       }
     }
 

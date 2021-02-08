@@ -1,5 +1,7 @@
 import './index.css'
-import { initMarkerMap, Marker } from './map'
+import { initMarkerMap } from './map'
+import { Marker } from './marker'
+import { filterObject } from './util'
 
 function readMarkerCSV (element) {
   const lines = element.textContent.trim().split('\n')
@@ -15,6 +17,13 @@ function getLocation (element: HTMLElement) {
     Number(element.dataset.lon),
     Number(element.dataset.lat)
   ]
+}
+
+function getColor (element: HTMLElement) {
+  return filterObject({
+    primary: element.dataset.colorPrimary,
+    secondary: element.dataset.colorSecondary
+  }, (key, value) => value)
 }
 
 const params = new URLSearchParams(window.location.search)
@@ -37,6 +46,7 @@ const markers = markerParam
     document.querySelectorAll<HTMLTemplateElement>('.marker'),
     template => ({
       location: getLocation(template),
+      color: getColor(template),
       name: template.content.querySelector('.name')?.textContent,
       info: template.content.querySelector('.info')?.cloneNode(true)
     })

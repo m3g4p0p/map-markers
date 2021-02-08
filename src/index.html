@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>index</title>
+  <title>Super Cool Street Map</title>
 </head>
 <body>
   <div id="map" class="map"></div>
 
-  <template class="marker" data-lon="8.27" data-lat="49.98">
+  <template class="marker" data-lon="8.27" data-lat="49.98" data-color-primary="#800080">
     <h2 class="name">Click me!</h2>
     <div class="info">
       <p>
@@ -39,7 +39,8 @@
 
       <label>
         Color:
-        <input type="color" name="color">
+        <input type="color" name="color-primary" value="#FF1493">
+        <input type="color" name="color-secondary" value="#FFFF00">
       </label>
 
       <label>

@@ -1,4 +1,5 @@
 {
+  "name": "map-markers",
   "devDependencies": {
     "@types/ol": "^6.4.2",
     "@types/pell": "^1.0.0",

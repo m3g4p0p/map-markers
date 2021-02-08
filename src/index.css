@@ -33,7 +33,11 @@ form .column {
 }
 
 form input {
-  margin-left: auto
+  margin-left: auto;
+}
+
+form input + input {
+  margin-left: 10px;
 }
 
 form input,
@@ -87,14 +91,20 @@ form label a {
   border: 1px solid white;
 }
 
+@media screen and (min-width: 768px) {
+  form {
+    flex-direction: row;
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .editor,
   .info {
     max-width: 40vw;
   }
 
-  form {
-    flex-direction: row;
+  form .column {
+    flex-basis: 40%;
   }
 }
 
@@ -102,5 +112,9 @@ form label a {
   .editor,
   .info {
     max-width: 30vw;
+  }
+
+  form .column {
+    flex-basis: 30%;
   }
 }
