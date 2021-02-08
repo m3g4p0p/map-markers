@@ -5,7 +5,8 @@
     "allowJs": true,
     "esModuleInterop": true,
     "target": "ES6",
-    "module": "CommonJS"
+    "module": "ESNext",
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules"]
 }

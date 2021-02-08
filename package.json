@@ -2,6 +2,7 @@
   "devDependencies": {
     "@types/ol": "^6.4.2",
     "@types/pell": "^1.0.0",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
     "html-webpack-plugin": "^5.0.0",
     "mini-css-extract-plugin": "^1.3.5",
