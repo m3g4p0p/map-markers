@@ -4,7 +4,8 @@
     "strict": false,
     "allowJs": true,
     "esModuleInterop": true,
-    "target": "ES6"
+    "target": "ES6",
+    "module": "CommonJS"
   },
   "exclude": ["node_modules"]
 }

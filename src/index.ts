@@ -10,6 +10,13 @@ function readMarkerCSV (element) {
   }))
 }
 
+function getLocation (element: HTMLElement) {
+  return [
+    Number(element.dataset.lon),
+    Number(element.dataset.lat)
+  ]
+}
+
 const params = new URLSearchParams(window.location.search)
 const markerParam = params.get('markers')
 const isViewMode = (window.parent !== window) || params.has('noedit')
@@ -29,10 +36,7 @@ const markers = markerParam
   : Array.from(
     document.querySelectorAll<HTMLTemplateElement>('.marker'),
     template => ({
-      location: [
-        Number(template.dataset.lon),
-        Number(template.dataset.lat)
-      ],
+      location: getLocation(template),
       name: template.content.querySelector('.name')?.textContent,
       info: template.content.querySelector('.info')?.cloneNode(true)
     })
@@ -43,7 +47,7 @@ const map = markerSelect.getMap()
 const view = map.getView()
 
 markerSelect.on('select', event => {
-  const [current] = event.selected
+  const [current] = event.selected as Marker[]
 
   event.selected.forEach((marker: Marker) => {
     marker.showInfo(map)
@@ -53,7 +57,7 @@ markerSelect.on('select', event => {
     marker.hideInfo(map)
   })
 
-  if (current) {
+  if (current && !current.hasInfo) {
     view.animate({
       center: current.get('geometry').getCoordinates(),
       duration: 200

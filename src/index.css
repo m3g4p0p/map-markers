@@ -16,6 +16,18 @@ body {
   box-shadow: 2px 2px 2px black;
 }
 
+@media screen and (min-width: 1024px) {
+  .info {
+    max-width: 40vw;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .info {
+    max-width: 30vw;
+  }
+}
+
 form {
   display: flex;
   justify-content: space-evenly;
@@ -83,4 +95,5 @@ form label a {
 
 .pell-content {
   border: 1px solid white;
+  max-width: 40vw;
 }

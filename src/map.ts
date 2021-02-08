@@ -36,8 +36,12 @@ export class Marker extends Feature {
     this.popup = this.initPopup()
   }
 
+  public get hasInfo () {
+    return this.popup.getElement().innerHTML.trim() !== ''
+  }
+
   public showInfo (map: Map) {
-    if (this.popup.getElement().innerHTML.trim()) {
+    if (this.hasInfo) {
       map.addOverlay(this.popup)
     }
   }
@@ -67,7 +71,10 @@ export class Marker extends Feature {
       element: this.get('info'),
       position: fromLonLat(this.get('location')),
       positioning: 'center-left' as OverlayPositioning,
-      offset: [20, 0]
+      offset: [20, 0],
+      autoPan: {
+        animation: { duration: 200 }
+      }
     })
   }
 
@@ -96,6 +103,10 @@ class MarkerText extends Text {
 }
 
 export function initMarkerMap (target: HTMLElement, markers: any[]) {
+  const center = markers.length
+    ? markers[0].location
+    : [Math.random() * 180, Math.random() * 90]
+
   const map = new Map({
     target,
     layers: [
@@ -104,8 +115,8 @@ export function initMarkerMap (target: HTMLElement, markers: any[]) {
       })
     ],
     view: new View({
-      center: fromLonLat(markers[0].location),
-      zoom: 15
+      center: fromLonLat(center),
+      zoom: markers.length ? 15 : 5
     })
   })
 

@@ -67,7 +67,9 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
       addButton.disabled = false
       removeButton.disabled = true
 
-      return form.reset()
+      form.reset()
+      updateLink(form, layer)
+      return
     }
 
     const [lon, lat] = marker.get('location')
@@ -95,7 +97,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
     const marker = new Marker({
       name: await getName(form),
       location: toLonLat(center),
-      infoHTML: form.elements['info'].value
+      infoHTML: infoEditor.value
     })
 
     const event = new SelectEvent(SELECT, [marker], [], null)
@@ -148,5 +150,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
         setLocation(marker, form)
       }
     }
+
+    updateLink(form, layer)
   })
 }
