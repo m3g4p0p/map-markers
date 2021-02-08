@@ -2,6 +2,11 @@
   "compilerOptions": {
     "sourceMap": true,
     "strict": false,
-    "allowJs": true
-  }
+    "allowJs": true,
+    "esModuleInterop": true,
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"]
 }

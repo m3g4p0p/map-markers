@@ -3,37 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>index</title>
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css"> -->
-  <!-- <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script> -->
+  <title>Super Cool Street Map</title>
 </head>
 <body>
-  <h2>Hello<span id="selected">...</span></h2>
   <div id="map" class="map"></div>
-  <script type="text/csv" id="markers">
-Mainz,8.27,49.98
-auch Mainz,8.272,49.982
-  </script>
 
-  <template class="marker" data-lon="8.27" data-lat="49.98">
-    <h2 class="name">Mainz</h2>
+  <template class="marker" data-lon="8.27" data-lat="49.98" data-color-primary="#800080">
+    <h2 class="name">Click me!</h2>
     <div class="info">
       <p>
-        This is <a href="https://www.mainz.de/">Mainz</a> not Wiesbaden!
+        Du kannst hier Marker erstellen, rumschieben, editieren und löschen.
       </p>
+      <p>
+        Der Link neben aktualisiert sich dann entsprechend, sodass der ganze Stuff gerecht geteilt werden kann.
+      </p>
+
+      <img src="https://photos.gograph.com/thumbs/CSP/CSP719/comic-cartoon-yeah-shout-vector-stock_k24081307.jpg" alt="yeah">
     </div>
   </template>
 
-  <template class="marker" data-lon="8.272" data-lat="49.982">
-    <h2 class="name">auch Mainz</h2>
-    <div class="info">
-      <p>
-        Whooo! Whooo! Whooo!
-      </p>
-      <div>
-        <img src="https://solid-rlp.de/wp-content/uploads/2018/06/Haus-Mainusch.jpg" alt="" width="200">
+  <form id="controls" style="display: none;">
+    <div class="column">
+      <h2>Marker</h2>
+
+      <div class="control">
+        <button type="button" name="add-marker">Add</button>
+        <button type="button" name="remove-marker" disabled>Remove</button>
+        <button type="button" name="clear-markers">Clear All</button>
+      </div>
+
+      <label>
+        Name:
+        <input type="text" name="name">
+      </label>
+
+      <label>
+        Color:
+        <input type="color" name="color-primary" value="#FF1493">
+        <input type="color" name="color-secondary" value="#FFFF00">
+      </label>
+
+      <label>
+        Longitude:
+        <input type="number" name="lon" readonly>
+      </label>
+
+      <label>
+        Latitude:
+        <input type="number" name="lat" readonly>
+      </label>
+
+      <label>
+        <a href target="_blank" id="link">Link</a>:
+        <input type="url" name="link" readonly>
+      </label>
+    </div>
+
+    <div class="column">
+      <h2>Popup</h2>
+
+      <div class="control">
+        <input type="hidden" name="info">
+        <div id="editor" class="editor"></div>
       </div>
     </div>
-  </template>
+  </form>
 </body>
 </html>

@@ -1,11 +1,7 @@
 body {
   background-color: black;
   padding: 0;
-}
-
-h2 {
-  color: white;
-  padding: 1em;
+  margin: 0;
 }
 
 .map {
@@ -18,4 +14,107 @@ h2 {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px black;
+  max-width: 80vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+form .column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 45%;
+}
+
+form input {
+  margin-left: auto;
+}
+
+form input + input {
+  margin-left: 10px;
+}
+
+form input,
+form textarea,
+form button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 0;
+  font-family: inherit;
+}
+
+form label,
+form .control {
+  display: flex;
+  margin: 5px 0;
+  align-items: center;
+}
+
+form textarea {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+
+form button {
+  background-color: white;
+  margin-right: 10px;
+}
+
+form button:active {
+  transform: scale(.9);
+}
+
+form button[disabled] {
+  background-color: gray;
+}
+
+form label a {
+  color: white;
+}
+
+.editor {
+  width: 100%;
+  color: initial;
+  font-family: initial;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.pell-content {
+  border: 1px solid white;
+}
+
+@media screen and (min-width: 768px) {
+  form {
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .editor,
+  .info {
+    max-width: 40vw;
+  }
+
+  form .column {
+    flex-basis: 40%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .editor,
+  .info {
+    max-width: 30vw;
+  }
+
+  form .column {
+    flex-basis: 30%;
+  }
 }
