@@ -1,12 +1,14 @@
+import { Feature, Map } from 'ol'
 import { Select, Translate } from 'ol/interaction'
-import { Marker } from './marker'
+import { Coordinate } from 'ol/coordinate'
 import { toLonLat } from 'ol/proj'
 import { SelectEvent, SelectEventType } from 'ol/interaction/Select'
 import VectorLayer from 'ol/layer/Vector'
+import { Marker } from './marker'
 import { initEditor } from './editor'
 import { getName } from './nonsense'
 
-const SELECT = 'select' as SelectEventType
+const SELECT_TYPE = 'select' as SelectEventType
 
 function getInfo (marker: Marker) {
   const info = marker.get('info')
@@ -53,6 +55,18 @@ function updateLink (form: HTMLFormElement, layer: VectorLayer) {
   params.append('markers', JSON.stringify(features))
 
   form.elements['link'].value = link.href = origin + pathname + '?' + params
+}
+
+function hasFeaureAtCoordinate (map: Map, coordinate: Coordinate) {
+  const pixel = map.getPixelFromCoordinate(coordinate)
+  return map.hasFeatureAtPixel(pixel)
+}
+
+function dispatchSelect (select: Select, selected: Feature[], deselected: Feature[]) {
+  const event = new SelectEvent(SELECT_TYPE, selected, deselected, null)
+
+  select.getFeatures().extend(selected)
+  select.dispatchEvent(event)
 }
 
 export function initControls (form: HTMLFormElement, layer: VectorLayer, select: Select) {
@@ -107,6 +121,12 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
 
   addButton.addEventListener('click', async () => {
     const center = map.getView().getCenter()
+
+    while (hasFeaureAtCoordinate(map, center)) {
+      center[0] += 1
+      center[1] += 1
+    }
+
     addButton.disabled = true
 
     const marker = new Marker({
@@ -116,21 +136,17 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
       color: getColor(form)
     })
 
-    const event = new SelectEvent(SELECT, [marker], [], null)
-
-    select.getFeatures().push(marker)
     layer.getSource().addFeature(marker)
-    select.dispatchEvent(event)
+    dispatchSelect(select, [marker], [])
     focusInput(form.elements['name'])
     updateLink(form, layer)
   })
 
   removeButton.addEventListener('click', () => {
     const source = layer.getSource()
-    const event = new SelectEvent(SELECT, [], [marker], null)
 
     source.removeFeature(marker)
-    select.dispatchEvent(event)
+    dispatchSelect(select, [], [marker])
     updateLink(form, layer)
   })
 
@@ -138,6 +154,7 @@ export function initControls (form: HTMLFormElement, layer: VectorLayer, select:
     if (window.confirm('Sure about that?')) {
       layer.getSource().clear()
       form.reset()
+      dispatchSelect(select, [], [marker])
       updateLink(form, layer)
     }
   })
