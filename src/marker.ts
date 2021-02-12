@@ -12,6 +12,9 @@ const COLOR_DEFAULTS = {
   secondary: '#ffff00'
 }
 
+const MARKER_RADIUS = 11
+const STROKE_WIDTH = 3
+
 function createInfoElement (innerHTML = '') {
   return Object.assign(
     document.createElement('div'),
@@ -77,7 +80,7 @@ export class Marker extends Feature {
       element: this.get('info'),
       position: fromLonLat(this.get('location')),
       positioning: 'center-left' as OverlayPositioning,
-      offset: [20, 0],
+      offset: [MARKER_RADIUS * 2, 0],
       autoPan: {
         animation: { duration: 200 }
       }
@@ -101,12 +104,12 @@ export function markerStyle (feature: FeatureLike, selected = false) {
 
   return new Style({
     image: new Circle({
-      radius: 10,
+      radius: MARKER_RADIUS,
       fill: new Fill({ color: selected ? color.secondary : color.primary }),
       ...selected ? {
         stroke: new Stroke({
           color: color.primary,
-          width: 3
+          width: STROKE_WIDTH
         })
       } : {}
     }),
@@ -115,7 +118,7 @@ export function markerStyle (feature: FeatureLike, selected = false) {
       textAlign: 'top',
       backgroundFill: new Fill({ color: 'white' }),
       padding: [4, 4, 4, 4],
-      offsetY: 25
+      offsetY: (MARKER_RADIUS + STROKE_WIDTH) * 2
     })
   })
 }
