@@ -3,15 +3,6 @@ import { initMarkerMap } from './map'
 import { Marker } from './marker'
 import { filterObject } from './util'
 
-function readMarkerCSV (element) {
-  const lines = element.textContent.trim().split('\n')
-
-  return lines.map(line => line.split(',').map(value => {
-    const parsed = Number(value)
-    return Number.isNaN(parsed) ? value : parsed
-  }))
-}
-
 function getLocation (element: HTMLElement) {
   return [
     Number(element.dataset.lon),
@@ -82,4 +73,11 @@ if (!isViewMode) {
     controlForm.style.display = ''
     initControls(controlForm as HTMLFormElement, markerLayer, markerSelect)
   }).catch(console.error)
+} else {
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && event.ctrlKey) {
+      params.delete('noedit')
+      window.location.search = `?${params}`
+    }
+  })
 }
